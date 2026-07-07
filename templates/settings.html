@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}
+Settings | MalGuard AI
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h2>MalGuard AI</h2>
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="{{ url_for('dashboard') }}">
+                    <i class="fa-solid fa-chart-line"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('dashboard') }}#upload-section">
+                    <i class="fa-solid fa-upload"></i>
+                    Upload File
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('history') }}">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    Scan History
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('report') }}">
+                    <i class="fa-solid fa-file-lines"></i>
+                    Reports
+                </a>
+            </li>
+
+            <li class="active">
+                <a href="{{ url_for('settings') }}">
+                    <i class="fa-solid fa-gear"></i>
+                    Settings
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('logout') }}">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main Content -->
+
+    <main class="main-content">
+
+        <h1>⚙ Settings</h1>
+
+        <br>
+
+        <div class="result-card">
+
+            <h2>Appearance</h2>
+
+            <p>🌙 Theme : Dark Mode</p>
+
+        </div>
+
+        <br>
+
+        <div class="result-card">
+
+            <h2>Scan Options</h2>
+
+            <p>✅ SHA-256 Hash</p>
+            <p>✅ Entropy Analysis</p>
+            <p>✅ Save Scan History</p>
+            <p>✅ Detect Executable Files</p>
+
+        </div>
+
+        <br>
+
+        <div class="result-card">
+
+            <h2>AI Model Information</h2>
+
+            <p><strong>Model :</strong> Random Forest</p>
+
+            <p><strong>Accuracy :</strong> 98.70%</p>
+
+            <p><strong>Dataset :</strong> 100000 Samples</p>
+
+            <p><strong>Version :</strong> 1.0</p>
+
+        </div>
+
+        <br>
+
+        <div class="result-card">
+
+            <h2>Database</h2>
+
+            <p><strong>Type :</strong> SQLite</p>
+
+            <p><strong>Total Records :</strong> {{ total_records }}</p>
+
+        </div>
+
+        <br>
+
+        <div class="result-card">
+
+            <h2 style="color:#EF4444;">
+                Danger Zone
+            </h2>
+
+            <button class="download-btn">
+
+                🗑 Clear Scan History
+
+            </button>
+
+            <button class="download-btn">
+
+                🔄 Reset Database
+
+            </button>
+
+        </div>
+
+    </main>
+
+</div>
+
+{% endblock %}

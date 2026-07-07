@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}
+Reports | MalGuard AI
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h2>MalGuard AI</h2>
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="{{ url_for('dashboard') }}">
+                    <i class="fa-solid fa-chart-line"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('dashboard') }}#upload-section">
+                    <i class="fa-solid fa-upload"></i>
+                    Upload File
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('history') }}">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    Scan History
+                </a>
+            </li>
+
+            <li class="active">
+                <a href="{{ url_for('report') }}">
+                    <i class="fa-solid fa-file-lines"></i>
+                    Reports
+                </a>
+            </li>
+            <li>
+    <a href="{{ url_for('analytics') }}">
+        <i class="fa-solid fa-chart-pie"></i>
+        Analytics
+    </a>
+</li>
+
+            <li>
+                <a href="{{ url_for('settings') }}">
+                    <i class="fa-solid fa-gear"></i>
+                    Settings
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('logout') }}">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main -->
+
+    <main class="main-content">
+
+        <h1>Scan Reports</h1>
+
+        <p>All generated malware scan reports.</p>
+
+        <table class="history-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>File</th>
+
+                    <th>Prediction</th>
+
+                    <th>Threat</th>
+
+                    <th>Scan Time</th>
+
+                    <th>Download</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for scan in scans %}
+
+                <tr>
+
+                    <td>{{ scan[1] }}</td>
+
+                    <td>
+
+                        {% if scan[5] == "SAFE" %}
+
+                            <span class="safe-text">🟢 SAFE</span>
+
+                        {% else %}
+
+                            <span class="malware-text">🔴 MALWARE</span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>{{ scan[8] }}%</td>
+
+                    <td>{{ scan[9] }}</td>
+
+                    <td>
+
+                        <td>
+
+    <a href="{{ url_for('download_report', scan_id=scan[0]) }}"
+       class="download-btn">
+
+        <i class="fa-solid fa-file-pdf"></i>
+
+        Download
+
+    </a>
+
+</td>
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </main>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}
+MalGuard AI
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+
+<section class="hero">
+
+    <h1>AI-Powered Malware Detection Platform</h1>
+
+    <p>
+        Protecting your digital world using Artificial Intelligence,
+        Machine Learning, and Cyber Security.
+    </p>
+
+    <div class="hero-buttons">
+           <a href="{{ url_for('login') }}" class="primary-btn">
+    <i class="fa-solid fa-shield-halved"></i>
+    Start Scanning
+</a>
+
+<a href="#features" class="secondary-btn">
+    Learn More
+</a>
+
+    </div>
+
+</section>
+
+<!-- Features -->
+
+<section class="features" id="features">
+
+    <h2>Core Features</h2>
+
+    <div class="feature-container">
+
+        <div class="card">
+            <i class="fa-solid fa-brain"></i>
+            <h3>AI Detection</h3>
+            <p>Machine Learning powered malware classification.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-shield-virus"></i>
+            <h3>Secure Upload</h3>
+            <p>Safely upload suspicious files for analysis.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-bolt"></i>
+            <h3>Fast Scanning</h3>
+            <p>Analyze malware within seconds.</p>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-file-pdf"></i>
+            <h3>PDF Reports</h3>
+            <p>Generate professional scan reports instantly.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Statistics -->
+
+<section class="stats">
+
+    <div class="stat-box">
+        <h2>98.7%</h2>
+        <p>Detection Accuracy</p>
+    </div>
+
+    <div class="stat-box">
+        <h2>15K+</h2>
+        <p>Files Scanned</p>
+    </div>
+
+    <div class="stat-box">
+        <h2>2500+</h2>
+        <p>Threats Blocked</p>
+    </div>
+
+    <div class="stat-box">
+        <h2>24/7</h2>
+        <p>Protection</p>
+    </div>
+
+</section>
+
+<footer>
+
+    © 2026 MalGuard AI | Intelligent Malware Detection Platform
+
+</footer>
+
+{% endblock %}

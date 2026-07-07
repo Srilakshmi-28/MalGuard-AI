@@ -1,0 +1,280 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard | MalGuard AI
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h2>MalGuard AI</h2>
+        </div>
+
+           <ul>
+
+    <li class="active">
+        <a href="{{ url_for('dashboard') }}">
+            <i class="fa-solid fa-chart-line"></i>
+            Dashboard
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ url_for('dashboard') }}#upload-section">
+            <i class="fa-solid fa-upload"></i>
+            Upload File
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ url_for('history') }}">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            Scan History
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ url_for('report') }}">
+            <i class="fa-solid fa-file-lines"></i>
+            Reports
+        </a>
+    </li>
+    <li>
+    <a href="{{ url_for('analytics') }}">
+        <i class="fa-solid fa-chart-pie"></i>
+        Analytics
+    </a>
+</li>
+
+    <li>
+        <a href="{{ url_for('settings') }}">
+            <i class="fa-solid fa-gear"></i>
+            Settings
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ url_for('logout') }}">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </a>
+    </li>
+
+</ul>
+
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <div class="topbar">
+
+            <div>
+                <h1>Dashboard</h1>
+                <p>Welcome back, Administrator.</p>
+            </div>
+
+            <div class="profile">
+                <i class="fa-solid fa-user-shield"></i>
+            </div>
+
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats-container">
+
+            <div class="stat-card">
+                <div class="stat-icon blue">
+                    <i class="fa-solid fa-folder-open"></i>
+                </div>
+
+                <div>
+                    <h3>Files Scanned</h3>
+                    <h2>1250</h2>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon red">
+                    <i class="fa-solid fa-bug"></i>
+                </div>
+
+                <div>
+                    <h3>Threats Found</h3>
+                    <h2>64</h2>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon green">
+                    <i class="fa-solid fa-shield"></i>
+                </div>
+
+                <div>
+                    <h3>Safe Files</h3>
+                    <h2>1186</h2>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon yellow">
+                    <i class="fa-solid fa-bullseye"></i>
+                </div>
+
+                <div>
+                    <h3>Accuracy</h3>
+                    <h2>98.7%</h2>
+                </div>
+            </div>
+
+        </div>
+
+        {% if uploaded %}
+
+        <!-- Upload Success -->
+        <div class="success-card">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <div>
+                <h3>File Uploaded Successfully</h3>
+                <p>{{ filename }}</p>
+            </div>
+
+        </div>
+
+        <!-- Result Card -->
+        <div class="result-card">
+
+            <h2>
+                <i class="fa-solid fa-shield-virus"></i>
+                Malware Analysis Result
+            </h2>
+
+            <div class="result-grid">
+
+                <div><strong>File Name</strong></div>
+                <div>{{ filename }}</div>
+
+                <div><strong>File Size</strong></div>
+                <div>{{ filesize }} KB</div>
+
+                <div><strong>File Type</strong></div>
+                <div>{{ filetype }}</div>
+
+                <div><strong>Extension</strong></div>
+                <div>{{ extension }}</div>
+
+                <div><strong>Entropy</strong></div>
+                <div>{{ entropy }}</div>
+
+                <div><strong>Scan Time</strong></div>
+                <div>{{ scan_time }}</div>
+                <div><strong>SHA-256</strong></div>
+<div class="hash-value">{{ sha256 }}</div>
+
+                <div><strong>Prediction</strong></div>
+
+                <div>
+                    {% if prediction == "SAFE" %}
+                        <span class="safe-text">🟢 SAFE</span>
+                    {% else %}
+                        <span class="malware-text">🔴 MALWARE</span>
+                    {% endif %}
+                </div>
+
+                <div><strong>Confidence</strong></div>
+                <div>{{ confidence }}</div>
+
+                <div><strong>Risk Level</strong></div>
+                <div>{{ risk }}</div>
+
+                <div><strong>Status</strong></div>
+                <div>{{ status }}</div>
+
+            </div>
+
+            <!-- Threat Score -->
+
+            <div class="threat-score">
+
+                <h3>Threat Score</h3>
+
+                <div class="progress-bar">
+
+                    <div class="progress-fill"
+                         style="width: {{ threat_score }}%;">
+
+                        {{ threat_score }}%
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+        <!-- Upload Form -->
+
+        <form id="upload-section"
+      class="upload-section"
+      action="{{ url_for('upload_file') }}"
+      method="POST"
+      enctype="multipart/form-data">
+
+            <h2>Upload Malware File</h2>
+
+            <div class="upload-card">
+
+                <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+
+                <h3>Drag & Drop File Here</h3>
+
+                <p>or choose a file from your computer</p>
+
+                <input
+                    type="file"
+                    id="fileInput"
+                    name="file"
+                    hidden
+                    required>
+
+                <button
+                    type="button"
+                    class="choose-btn"
+                    onclick="document.getElementById('fileInput').click()">
+
+                    Choose File
+
+                </button>
+
+                <p id="selectedFile">
+                    No file selected
+                </p>
+
+                <button type="submit" class="scan-btn">
+
+                    <i class="fa-solid fa-shield-virus"></i>
+
+                    Scan Malware
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </main>
+
+</div>
+
+{% endblock %}
